@@ -9,11 +9,11 @@
 		<version>2.1.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.camelot</groupId>
-	<artifactId>asset</artifactId>
+	<groupId>com.youngzeu</groupId>
+	<artifactId>mplus</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>asset</name>
-	<description>asset management project</description>
+	<name>mplus</name>
+	<description>mplus management project</description>
 
 	<properties>
 		<java.version>1.8</java.version>
