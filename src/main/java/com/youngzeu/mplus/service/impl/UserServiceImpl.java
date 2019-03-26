@@ -13,7 +13,7 @@ import com.youngzeu.mplus.service.UserService;
 @Service
 public class UserServiceImpl implements UserService{
 
-	@Autowired
+	//@Autowired
 	private UserDao userDao;
 	
 	@Override
