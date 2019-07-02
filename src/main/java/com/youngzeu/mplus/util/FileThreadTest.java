@@ -4,7 +4,7 @@ import java.io.File;
 
 public class FileThreadTest implements Runnable{
 
-	private static File file;
+	private File file;
 	
 	public FileThreadTest(File file) {
 		this.file = file;

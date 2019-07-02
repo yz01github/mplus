@@ -8,6 +8,7 @@ spring:
 server: 
   servlet: 
     context-path: /mplus
+  port: 8888
 
 mybatis-plus:
     mapper-locations: classpath:/mapper/*Mapper.xml

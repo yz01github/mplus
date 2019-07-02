@@ -24,9 +24,8 @@ class A implements Runnable {
 	@Override
 	public void run() {
 		try {
-			Thread.currentThread().sleep(10 * 1000);
+			Thread.sleep(10 * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(Thread.currentThread().getName() + " : " + " hello world + " + System.currentTimeMillis());

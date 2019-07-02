@@ -30,7 +30,7 @@ public class EasyPoiServiceImpl implements EasyPoiService{
 	public void testExcel() {
 		String filePath = "E:\\xxx.xlsx";
         //解析excel，
-		ImportParams params = new ImportParams();
+//		ImportParams params = new ImportParams();
 //        params.setHeadRows(1);
 //        List<User> userList = ExcelImportUtil.importExcel(new File(filePath), User.class, params);
 		List<User> userList = importExcel(filePath, 0, 1, User.class);

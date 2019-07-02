@@ -7,4 +7,5 @@ import com.youngzeu.mplus.entity.User;
 
 @Mapper
 public interface UserDao extends BaseMapper<User>{
+
 }

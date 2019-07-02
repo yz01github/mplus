@@ -11,4 +11,6 @@ public interface UserService {
 	List<User> selectList();
 	
 	Integer deleteById(Integer id);
+
+	Boolean login(User user);
 }
