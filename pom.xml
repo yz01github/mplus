@@ -18,6 +18,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<springfox-swagger2.version>2.5.0</springfox-swagger2.version>
+		<skipTests>true</skipTests>
 	</properties>
 
 	<dependencies>
@@ -112,13 +113,13 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.47</version>
-		</dependency>
- -->
+		</dependency> -->
+		
 		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- easyPoi dependencies -->
 		 <dependency>
@@ -136,7 +137,13 @@
             <artifactId>easypoi-web</artifactId>
             <version>3.1.0</version>
         </dependency>
-        
+	
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

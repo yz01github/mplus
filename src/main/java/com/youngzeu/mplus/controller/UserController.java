@@ -89,5 +89,11 @@ public class UserController {
 		return id;
 	}
 	
-	
+	@GetMapping("/test/{id}")
+	public ResponseResult<User> getTest(@PathVariable("id") String id) {
+		User user = new User();
+		user.setId(Long.parseLong(id));
+		user.setUserName("测试user");
+		return ResponseResult.successAddData(user);
+	}
 }
