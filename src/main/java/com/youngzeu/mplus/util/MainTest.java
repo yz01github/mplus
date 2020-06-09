@@ -1,21 +1,46 @@
 package com.youngzeu.mplus.util;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class MainTest {
 
 	public static void main(String[] args) {
-		new MainTest();
+		// new MainTest();
+		/*
+		 * HashMap<String,Object> map = new HashMap<String, Object>(4);
+		 * map.put("key1","value1"); ArrayList list = new ArrayList<String>();
+		 * list.add("list1");
+		 * 
+		 * LinkedList<Object> linkedList = new LinkedList<>(); linkedList.add(map);
+		 * linkedList.add(list); String jsonString =
+		 * JSONObject.toJSONString(linkedList); System.out.println(jsonString);
+		 */
+		
+		"".replaceAll("", "");
+		
 	}
 
 	public MainTest() {
-
-		for (int i = 0; i < 80; i++) {
-			A a = new A();
-			B.getThreadPool().submit(a);
-		}
-		System.out.println("end >>>>>>>>>>" );
+		/*
+		 * for (int i = 0; i < 80; i++) { A a = new A(); B.getThreadPool().submit(a); }
+		 * System.out.println("end >>>>>>>>>>" );
+		 */
+	}
+	@Test
+	public void Test() {
+		System.out.println(UUID.randomUUID().toString().length());
+		/*
+		 * for (int i = 0; i < 80; i++) { A a = new A(); B.getThreadPool().submit(a); }
+		 * System.out.println("end >>>>>>>>>>" );
+		 */
 	}
 }
 
