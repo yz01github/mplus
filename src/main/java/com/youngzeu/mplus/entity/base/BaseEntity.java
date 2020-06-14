@@ -2,16 +2,15 @@ package com.youngzeu.mplus.entity.base;
 
 import java.time.LocalDateTime;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class BaseEntity {
+public class BaseEntity extends Model<BaseEntity> {
 	/**
      * 主键ID
      */
@@ -23,26 +22,29 @@ public class BaseEntity {
     /**
      * 创建时间
      */
-
     @JsonIgnore
-    protected LocalDateTime createTime;
+    @TableField(value = "INSERT_TIME",  fill = FieldFill.INSERT)
+    protected LocalDateTime insertTime;
 
     /**
      * 修改时间
      */
     @JsonIgnore
+    @TableField(value = "UPDATE_TIME",  fill = FieldFill.UPDATE)
     protected LocalDateTime updateTime;
 
     /**
      * 创建人
      */
     @JsonIgnore
-    protected String createUser;
+    @TableField(value = "INSERT_USER",  fill = FieldFill.INSERT)
+    protected String insertUser;
 
     /**
      * 修改人
      */
     @JsonIgnore
+    @TableField(value = "UPDATE_USER",  fill = FieldFill.UPDATE)
     protected String updateUser;
 
     /**

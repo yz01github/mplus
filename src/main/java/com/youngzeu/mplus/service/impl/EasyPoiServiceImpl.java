@@ -9,12 +9,12 @@ import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.youngzeu.mplus.entity.user.UserDO;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.youngzeu.mplus.entity.User;
 import com.youngzeu.mplus.service.EasyPoiService;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
@@ -32,12 +32,14 @@ public class EasyPoiServiceImpl implements EasyPoiService{
         //解析excel，
 //		ImportParams params = new ImportParams();
 //        params.setHeadRows(1);
-//        List<User> userList = ExcelImportUtil.importExcel(new File(filePath), User.class, params);
-		List<User> userList = importExcel(filePath, 0, 1, User.class);
-        System.out.println("userList:" + userList);
-        System.out.println("导入数据一共【"+userList.size()+"】行");
-        System.out.println("------------");
-        System.out.println(userList);
+        //List<User> userList = ExcelImportUtil.importExcel(new File(filePath), User.class, params);
+//		List<UserDO> userList = importExcel(filePath, 0, 1, UserDO.class);
+//        System.out.println("userList:" + userList);
+//        System.out.println("导入数据一共【"+userList.size()+"】行");
+//        System.out.println("------------");
+//        System.out.println(userList);
+
+
 	}
 	
 	

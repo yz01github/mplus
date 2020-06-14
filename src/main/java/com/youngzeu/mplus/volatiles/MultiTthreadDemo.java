@@ -5,10 +5,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.junit.Test;
-
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 
+@Slf4j
 public class MultiTthreadDemo {
 	public static ExecutorService getExcutor() {
 		return Executors.newFixedThreadPool(5);

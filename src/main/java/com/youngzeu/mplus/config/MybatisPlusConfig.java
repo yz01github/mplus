@@ -18,8 +18,7 @@ public class MybatisPlusConfig {
 	/**
 	 * 分页插件
 	* @Description: TODO
-	* @param 		参数  
-	* @return 		PaginationInterceptor    返回类型  
+	* @return 		PaginationInterceptor    返回类型
 	* @throws
 	 */
 	@Bean
