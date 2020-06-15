@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
 
 public class TraverseDemo {
 
@@ -14,7 +13,6 @@ public class TraverseDemo {
 	
 	private List<FileInfo> list = new ArrayList<>();
 
-	@Test
 	public void test() {
 		traverseTest(path);
 		FileInfo[] array = list.toArray(new FileInfo[list.size()]);

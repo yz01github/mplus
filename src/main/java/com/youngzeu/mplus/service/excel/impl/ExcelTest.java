@@ -1,11 +1,10 @@
-package com.youngzeu.mplus.service.impl;
+package com.youngzeu.mplus.service.excel.impl;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.*;
@@ -33,6 +32,7 @@ public class ExcelTest {
                         System.out.println(hssfCell.getStringCellValue() + "-------------");
                     }
                     if(rowNum == 13){
+//                        CellType cellType = hssfCell.getCellType();
                         CellType cellType = hssfCell.getCellType();
                         if (cellType == CellType.FORMULA && (columnIndex == 1 || columnIndex == 2)) {
                             String cellFormula = hssfCell.getCellFormula();

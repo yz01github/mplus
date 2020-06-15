@@ -1,6 +1,5 @@
 package com.youngzeu.mplus.util;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -32,7 +31,6 @@ public class MainTest {
 		 * System.out.println("end >>>>>>>>>>" );
 		 */
 	}
-	@Test
 	public void Test() {
 		System.out.println(UUID.randomUUID().toString().length());
 		/*
