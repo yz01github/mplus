@@ -140,25 +140,14 @@
             <version>4.0.0</version>
         </dependency>
 	
-		<!-- junit -->
+		<!-- junit spring-boot-starter-test 内置了 junit4.1.2 -->
+		<!--
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-
+		-->
 		<!-- 文件读写相关工具包 -->
 		<dependency>
 			<groupId>commons-io</groupId>

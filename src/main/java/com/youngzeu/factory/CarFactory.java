@@ -1,7 +1,6 @@
 package com.youngzeu.factory;
 
 
-import org.junit.jupiter.api.Test;
 
 public class CarFactory {
 	
@@ -21,7 +20,6 @@ public class CarFactory {
 		return car;
 	}
 	
-	@Test
 	public void factoryTest() {
 		CarFactory factory = new CarFactory();
 		Car bmw = factory.getCar("BMW");

@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 @Slf4j
 public class MultiTthreadDemo {
@@ -22,7 +21,6 @@ public class MultiTthreadDemo {
 		return getExcutor().submit(task);
 	}
 	
-	@Test
 	public void test1() {
 		MultiTthreadDemo.submit(new RunThread());
 		MultiTthreadDemo.submit(new CallThread());
