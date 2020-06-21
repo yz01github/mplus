@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/mplus?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://localhost:3306/busi_youngzeu?characterEncoding=utf8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
@@ -43,12 +43,16 @@ mybatis-plus:
         id-type: auto
         #驼峰下划线转换
         capital-mode: true
-        #逻辑删除配置
-        sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
-        logic-delete-value: 0
-        logic-not-delete-value: 1
+        #逻辑删除配置, 直接在Model(Entity)中的逻辑删除字段加上@TableLogic就行
+        # 详细用法参见本项目com.youngzeu.mplus.entity.base.BaseEntity的isDelete字段
+#        sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+#        logic-delete-value: 0
+#        logic-not-delete-value: 1
         db-type: mysql
-        field-strategy: not-null
+        # mybatis plus 默认策略NOT_NULL,即更新和新增的时候,只操作notNull的字段
+        # IGNORED(忽略判断,可在单个字段上加@TableField(strategy=FieldStrategy.IGNORED)达到效果)
+        # NOT_EMPTY(非空判断) DEFAULT(默认NOT_NULL)
+        field-strategy: NOT_NULL
         #自定义填充策略接口实现
         #meta-object-handler: com.baomidou.springboot.xxx
         #自定义SQL注入器

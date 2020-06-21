@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserService {
 	List<UserDO> selectList();
 	
-	Integer deleteById(Integer id);
+	Integer deleteById(String id);
 
     UserDTO login(UserDO user);
 

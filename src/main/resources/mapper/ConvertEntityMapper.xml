@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youngzeu.mplus.dao.ConvertEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.youngzeu.mplus.entity.convert.ConvertEntity" >
+    <constructor >
+      <idArg column="TYPE_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="DATA_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DATA_VALUE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DATA_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SPARE_STR1" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SPARE_STR2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="INSERT_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="INSERT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TYPE_ID, DATA_ID, DATA_VALUE, DATA_NAME, SPARE_STR1, SPARE_STR2, INSERT_USER, UPDATE_USER, 
+    INSERT_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.youngzeu.mplus.entity.convert.ConvertEntityKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ps_convert
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+      and DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.youngzeu.mplus.entity.convert.ConvertEntityKey" >
+    delete from ps_convert
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+      and DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.youngzeu.mplus.entity.convert.ConvertEntity" >
+    insert into ps_convert (TYPE_ID, DATA_ID, DATA_VALUE, 
+      DATA_NAME, SPARE_STR1, SPARE_STR2, 
+      INSERT_USER, UPDATE_USER, INSERT_TIME, 
+      UPDATE_TIME)
+    values (#{typeId,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, #{dataValue,jdbcType=VARCHAR}, 
+      #{dataName,jdbcType=VARCHAR}, #{spareStr1,jdbcType=VARCHAR}, #{spareStr2,jdbcType=VARCHAR}, 
+      #{insertUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.youngzeu.mplus.entity.convert.ConvertEntity" >
+    insert into ps_convert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        TYPE_ID,
+      </if>
+      <if test="dataId != null" >
+        DATA_ID,
+      </if>
+      <if test="dataValue != null" >
+        DATA_VALUE,
+      </if>
+      <if test="dataName != null" >
+        DATA_NAME,
+      </if>
+      <if test="spareStr1 != null" >
+        SPARE_STR1,
+      </if>
+      <if test="spareStr2 != null" >
+        SPARE_STR2,
+      </if>
+      <if test="insertUser != null" >
+        INSERT_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="insertTime != null" >
+        INSERT_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null" >
+        #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null" >
+        #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataName != null" >
+        #{dataName,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr1 != null" >
+        #{spareStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr2 != null" >
+        #{spareStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUser != null" >
+        #{insertUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.youngzeu.mplus.entity.convert.ConvertEntity" >
+    update ps_convert
+    <set >
+      <if test="dataValue != null" >
+        DATA_VALUE = #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="dataName != null" >
+        DATA_NAME = #{dataName,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr1 != null" >
+        SPARE_STR1 = #{spareStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr2 != null" >
+        SPARE_STR2 = #{spareStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUser != null" >
+        INSERT_USER = #{insertUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+      and DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.youngzeu.mplus.entity.convert.ConvertEntity" >
+    update ps_convert
+    set DATA_VALUE = #{dataValue,jdbcType=VARCHAR},
+      DATA_NAME = #{dataName,jdbcType=VARCHAR},
+      SPARE_STR1 = #{spareStr1,jdbcType=VARCHAR},
+      SPARE_STR2 = #{spareStr2,jdbcType=VARCHAR},
+      INSERT_USER = #{insertUser,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where TYPE_ID = #{typeId,jdbcType=VARCHAR}
+      and DATA_ID = #{dataId,jdbcType=VARCHAR}
+  </update>
+</mapper>

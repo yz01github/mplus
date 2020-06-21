@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Integer deleteById(Integer id) {
-		return userDao.delete(new QueryWrapper<UserDO>().eq("id", id));
+	public Integer deleteById(String id) {
+		return userDao.delete(new QueryWrapper<UserDO>().eq("USER_ID", id));
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @ComponentScan(basePackages="com.youngzeu.mplus.controller")
 public class SwaggerConfig {
+    // http://localhost:8888/mplus/swagger-ui.html
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)

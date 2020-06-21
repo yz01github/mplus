@@ -30,11 +30,11 @@ public class UserController {
 		return userService.selectList();
 	}
 
-	@GetMapping("/{id}")
-	@ApiOperation(value = "删除用户")
-	public Boolean deleteUserDO(@PathVariable("id") Integer id) {
-		System.out.println("id ------------>"+id);
-		return userService.deleteById(id) > 0;
+	@DeleteMapping("/{id}")
+	@ApiOperation(value = "删除单个用户")
+	public ResponseResult<Integer> deleteUserDO(@PathVariable("id") String id) {
+		Integer integer = userService.deleteById(id);
+		return ResponseResult.successAddData(integer);
 	}
 
 	@ApiOperation(value = "参数校验")
@@ -75,19 +75,11 @@ public class UserController {
 		return id;
 	}
 	
-	@ApiOperation("delete rest {id}")
-	@DeleteMapping("/{id}")
-	public String deleteTest(@PathVariable("id") String id) {
-		System.out.println("id : " + id);
-		return id;
-	}
-	
 	@GetMapping("/test/{id}")
-	public ResponseResult<UserDO> getTest(@PathVariable("id") String id) {
+	public ResponseResult<Integer> getTest(@PathVariable("id") String id) {
 		UserDO user = new UserDO();
-		user.setId(Long.parseLong(id));
-		user.setUserName("测试user");
-		return ResponseResult.successAddData(user);
+		Integer integer = userService.deleteById(id);
+		return ResponseResult.successAddData(integer);
 	}
 
 	// 后面应该写个AOP，把@Validated报的错处理包装返回
@@ -101,7 +93,7 @@ public class UserController {
 	}
 
 	// 后面应该写个AOP，把@Validated报的错处理包装返回
-	@ApiOperation("新增用户")
+	@ApiOperation("是否已存在该用户账号")
 	@GetMapping("/valid/{userAccount}")
 	public ResponseResult<UserDO> vaildExist(@PathVariable("userAccount") String userAccount) {
 		boolean isOk = userService.validExist(userAccount);

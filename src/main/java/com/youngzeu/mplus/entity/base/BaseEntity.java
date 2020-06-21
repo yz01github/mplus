@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BaseEntity extends Model<BaseEntity> {
 	/**
      * 主键ID
@@ -50,7 +52,7 @@ public class BaseEntity extends Model<BaseEntity> {
     /**
      * 是否删除 : 0 未删除,1 已删除
      */
-    @TableLogic
-    @JsonIgnore
+    @TableLogic(value = "0", delval = "1")
+    @TableField(value = "IS_DELETE",  fill = FieldFill.INSERT)
     protected Integer isDelete;
 }
