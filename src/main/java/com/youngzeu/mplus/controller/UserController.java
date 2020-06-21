@@ -1,10 +1,11 @@
 package com.youngzeu.mplus.controller;
 
+import com.youngzeu.mplus.config.cached.SessionCached;
 import com.youngzeu.mplus.entity.user.UserCreateVO;
 import com.youngzeu.mplus.entity.user.UserDO;
 import com.youngzeu.mplus.entity.user.UserDTO;
 import com.youngzeu.mplus.response.ResponseResult;
-import com.youngzeu.mplus.service.UserService;
+import com.youngzeu.mplus.service.permission.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Api(tags = "user相关接口")
 @RestController
@@ -49,23 +51,22 @@ public class UserController {
 		return user.getPassword();
 	}
 
-	@ApiOperation(value = "json参数")
-	@PutMapping("/jsonTest")
-	public String jsonTest1(@RequestBody String ppp) {
-		System.out.println(ppp);
-		return ppp;
-	}
-	
 	@ApiOperation(value = "用户登录")
 	@PostMapping("/login")
 	public ResponseResult login(@Valid UserDO user){//启用参数校验
-		Boolean flag = userService.login(user);
-		if (flag) {
-			return ResponseResult.successAddData("登录成功");
-		} else {
-			return ResponseResult.failAddMessage("登录失败");
-		}
-	}
+        UserDTO userDTO = userService.login(user);
+
+        if (Objects.nonNull(userDTO)) {
+            UserDO userDO = new UserDO();
+            BeanUtils.copyProperties(userDO, userDTO);
+            SessionCached.setUser(userDO);
+            SessionCached.loadPerission(userDO);
+            return ResponseResult.successAddData("登录成功");
+        } else {
+            return ResponseResult.failAddMessage("登录失败");
+        }
+
+    }
 	
 	@ApiOperation(value = "notNull")
 	@GetMapping("/notNull")
@@ -96,6 +97,14 @@ public class UserController {
 		UserDTO userDTO = new UserDTO();
 		BeanUtils.copyProperties(userVO, userDTO);
 		boolean isOk = userService.createUser(userDTO);
+		return ResponseResult.result(isOk);
+	}
+
+	// 后面应该写个AOP，把@Validated报的错处理包装返回
+	@ApiOperation("新增用户")
+	@GetMapping("/valid/{userAccount}")
+	public ResponseResult<UserDO> vaildExist(@PathVariable("userAccount") String userAccount) {
+		boolean isOk = userService.validExist(userAccount);
 		return ResponseResult.result(isOk);
 	}
 }

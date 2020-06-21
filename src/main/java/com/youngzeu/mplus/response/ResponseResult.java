@@ -41,6 +41,17 @@ public class ResponseResult<T> {
 		return isSuccess ? success() : fail();
 	}
 
+	public static <T> ResponseResult<T> resultAddData(boolean isSuccess, T data) {
+		return isSuccess ? successAddData(data) : failAddData(data);
+	}
+
+	private static <T> ResponseResult<T> failAddData(T data) {
+		//返回一个带500状态码的结果对象,并且附带数据
+		ResponseResult<T> result = fail();
+		result.setData(data);
+		return result;
+	}
+
 	public static <T> ResponseResult<T> success() {
 		//返回一个只带200状态码的结果对象（请求成功对象）
 		ResponseResult<T> result = new ResponseResult<T>();

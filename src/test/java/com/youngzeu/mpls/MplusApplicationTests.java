@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.youngzeu.mplus.MplusApplication;
 import com.youngzeu.mplus.dao.UserDao;
 import com.youngzeu.mplus.entity.User;
-import com.youngzeu.mplus.service.impl.EasyPoiServiceImpl;
+import com.youngzeu.mplus.service.excel.impl.EasyPoiServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 

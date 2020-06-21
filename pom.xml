@@ -22,10 +22,12 @@
 	</properties>
 
 	<dependencies>
+		<!-- 1.4之前redis引入 spring-boot-starter-data-redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+		<!-- 1.4之后redis引入 spring-data-redis -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
@@ -99,7 +101,7 @@
 		</dependency>
 
 		<!-- poi:解析Excel依赖 -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>RELEASE</version>
@@ -113,7 +115,7 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.47</version>
-		</dependency> -->
+		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
 		<!-- <dependency>
@@ -125,17 +127,17 @@
 		 <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-base</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-annotation</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-web</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.0</version>
         </dependency>
 	
 		<!-- junit -->
@@ -144,7 +146,26 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+		<!-- 文件读写相关工具包 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
