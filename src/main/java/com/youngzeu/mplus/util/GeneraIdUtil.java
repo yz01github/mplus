@@ -10,7 +10,7 @@ public class GeneraIdUtil {
 
     private static final String REPLACE_FLAG = "0";
 
-    public static String generaUUID(){
+    public static String generaUUID() {
         return UUID.randomUUID().toString().replaceAll("-", REPLACE_FLAG);
     }
 
