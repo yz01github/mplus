@@ -16,12 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * created 2020/6/15
  */
 public class SessionCached {
-    private static ThreadLocal<Map<String,Object>> local = new ThreadLocal<>();
-    static {
-        // ConcurrentHashMap 使用分段锁机制保证线程安全，比HashTable好，HashMap线程不安全
-        ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>(64);
-        local.set(map);
-    }
+    // ConcurrentHashMap 使用分段锁机制保证线程安全，比HashTable好，HashMap线程不安全
+    private static ThreadLocal<Map<String,Object>> local =
+            ThreadLocal.withInitial(ConcurrentHashMap :: new);
 
     public static Map<String, Object> get(){
         return local.get();

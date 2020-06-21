@@ -1,6 +1,9 @@
 package com.youngzeu.mplus.config;
 
+import com.youngzeu.mplus.interceptor.CsrfInterceptor;
+import com.youngzeu.mplus.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -19,6 +22,7 @@ import java.util.List;
  * @author <a href="mailto:yangzhi@asiainfo.com">yangzhi</a>
  * created 2020/1/19
  */
+@Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -40,12 +44,13 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                 .allowCredentials(true).maxAge(3600);
     }
 
-    /*@Override
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns(用于添加拦截规则);excludePathPatterns(用户排除拦截)
-        *//*registry.addInterceptor(new MyInterceptor1()).addPathPatterns("/**");
-        registry.addInterceptor(new MyInterceptor2()).addPathPatterns("/**");*//*
-    }*/
+        //*registry.addInterceptor(new MyInterceptor1()).addPathPatterns("/**");
+        registry.addInterceptor(new CsrfInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+    }
 
     // 实现WebMvcConfigurer的
     /*@Override

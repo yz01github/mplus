@@ -8,6 +8,7 @@ import com.youngzeu.mplus.response.ResponseResult;
 import com.youngzeu.mplus.service.permission.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Api(tags = "user相关接口")
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -33,6 +35,7 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "删除单个用户")
 	public ResponseResult<Integer> deleteUserDO(@PathVariable("id") String id) {
+		log.debug("USER_IDFO:{}", SessionCached.getUser());
 		Integer integer = userService.deleteById(id);
 		return ResponseResult.successAddData(integer);
 	}
@@ -59,8 +62,8 @@ public class UserController {
         if (Objects.nonNull(userDTO)) {
             UserDO userDO = new UserDO();
             BeanUtils.copyProperties(userDO, userDTO);
-            SessionCached.setUser(userDO);
-            SessionCached.loadPerission(userDO);
+			SessionCached.setUser(userDO);
+			SessionCached.loadPerission(userDO);
             return ResponseResult.successAddData("登录成功");
         } else {
             return ResponseResult.failAddMessage("登录失败");

@@ -19,6 +19,7 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
         //获取当前登录的用户
         setFieldValByName("insertUser", "DEFAULT_INSERT", metaObject);
         setFieldValByName("insertTime", LocalDateTime.now(), metaObject);
+        setFieldValByName("isDelete", '0', metaObject);
         log.debug("insertFill end...");
     }
 
