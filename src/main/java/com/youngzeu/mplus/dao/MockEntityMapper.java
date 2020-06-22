@@ -1,7 +1,7 @@
 package com.youngzeu.mplus.dao;
 
-import com.youngzeu.mplus.entity.Mock.MockEntity;
-import com.youngzeu.mplus.entity.Mock.MockEntityKey;
+import com.youngzeu.mplus.entity.mock.MockEntity;
+import com.youngzeu.mplus.entity.mock.MockEntityKey;
 
 public interface MockEntityMapper {
     int deleteByPrimaryKey(MockEntityKey key);

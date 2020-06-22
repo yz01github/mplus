@@ -1,4 +1,4 @@
-package com.youngzeu.mplus.entity.Mock;
+package com.youngzeu.mplus.entity.mock;
 
 import com.youngzeu.mplus.entity.base.BaseEntity;
 
