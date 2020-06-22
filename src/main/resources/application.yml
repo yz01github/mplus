@@ -63,5 +63,5 @@ mybatis-plus:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level:
-    com.young : debug
+    com.youngzeu : debug
 
