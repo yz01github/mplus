@@ -1,9 +1,8 @@
 package com.youngzeu.mplus.config.cached;
 
 import com.youngzeu.mplus.entity.base.BaseEntity;
-import com.youngzeu.mplus.entity.user.UserDO;
+import com.youngzeu.mplus.entity.user.UserEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,11 +39,11 @@ public class SessionCached {
         put("USER_INFO", user);
     }
 
-    public static UserDO getUser() {
-        return (UserDO) get().get("USER_INFO");
+    public static UserEntity getUser() {
+        return (UserEntity) get().get("USER_INFO");
     }
 
-    public static void loadPerission(UserDO userDO) {
+    public static void loadPerission(UserEntity userDO) {
         String userId = userDO.getUserId();
         if(StringUtils.isBlank(userId)){
             return;

@@ -1,7 +1,7 @@
 package com.youngzeu.mplus.interceptor;
 
 import com.youngzeu.mplus.config.cached.SessionCached;
-import com.youngzeu.mplus.entity.user.UserDO;
+import com.youngzeu.mplus.entity.user.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.Session;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -57,7 +57,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
             // 登录后返回原先需要访问的页面 end
             // 存储线程变量 begin; 权限等数据应在首次登录时，缓存的redis，后续每次更新权限的同时更新redis
-            UserDO userInfo = (UserDO)session.getAttribute("USER_INFO");
+            UserEntity userInfo = (UserEntity)session.getAttribute("USER_INFO");
             SessionCached.setUser(userInfo);
             // 存储线程变量 end
 

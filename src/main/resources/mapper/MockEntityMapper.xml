@@ -16,8 +16,8 @@
       <arg column="MOCK_TAG3" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="INSERT_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UPDATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="INSERT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="INSERT_TIME" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >

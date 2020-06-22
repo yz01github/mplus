@@ -1,10 +1,9 @@
 package com.youngzeu.mplus.service.permission.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.youngzeu.mplus.entity.user.UserDO;
 import com.youngzeu.mplus.entity.user.UserDTO;
+import com.youngzeu.mplus.entity.user.UserEntity;
 import com.youngzeu.mplus.service.permission.UserService;
 import com.youngzeu.mplus.util.GeneraIdUtil;
 import com.youngzeu.mplus.util.permission.UserUtil;
@@ -23,27 +22,27 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public List<UserDO> selectList() {
-		List<UserDO> list = userDao.selectList(new QueryWrapper<UserDO>());
+	public List<UserEntity> selectList() {
+		List<UserEntity> list = userDao.selectList(new QueryWrapper<UserEntity>());
 		return list;
 	}
 
 	@Override
 	public Integer deleteById(String id) {
-		return userDao.delete(new QueryWrapper<UserDO>().eq("USER_ID", id));
+		return userDao.delete(new QueryWrapper<UserEntity>().eq("USER_ID", id));
 	}
 
 	@Override
-	public UserDTO login(UserDO user) {
+	public UserDTO login(UserEntity user) {
 		//这部分可以看不懂，做的事情就是去数据库查询账号密码是否匹配，返回一个boolean结果
-		QueryWrapper<UserDO> wrapper = new QueryWrapper<UserDO>()
+		QueryWrapper<UserEntity> wrapper = new QueryWrapper<UserEntity>()
 				.eq("userAccount", user.getUserAccount())
 				.eq("password", user.getPassword());
-        List<UserDO> userInfos = userDao.selectList(wrapper);
+        List<UserEntity> userInfos = userDao.selectList(wrapper);
         if(CollectionUtils.isEmpty(userInfos)){
             return null;
         }
-        UserDO userDO = userInfos.get(0);
+		UserEntity userDO = userInfos.get(0);
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(userDO, userDTO);
         return userDTO;
@@ -55,13 +54,13 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public boolean createUser(UserDTO userDTO) {
-		UserDO userDO = new UserDO();
-		BeanUtils.copyProperties(userDTO, userDO);
-		userDO.setUserId(GeneraIdUtil.generaUUID());
-		if(UserUtil.userIsExist(userDO)){
+		UserEntity userEntity = new UserEntity();
+		BeanUtils.copyProperties(userDTO, userEntity);
+		userEntity.setUserId(GeneraIdUtil.generaUUID());
+		if(UserUtil.userIsExist(userEntity)){
 			throw new RuntimeException("该用户已存在，请查证账号后重新注册！");
 		}
-		return userDao.insert(userDO) > 0;
+		return userDao.insert(userEntity) > 0;
 	}
 
 	/**
@@ -73,9 +72,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public boolean validExist(String userAccount) {
-		UserDO userDO = new UserDO();
-		userDO.setUserAccount(userAccount);
-		return UserUtil.userIsExist(userDO);
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUserAccount(userAccount);
+		return UserUtil.userIsExist(userEntity);
 	}
 
 }

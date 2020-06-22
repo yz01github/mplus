@@ -16,7 +16,7 @@ public class BaseEntity extends Model<BaseEntity> {
 	/**
      * 主键ID
      */
-    @ApiModelProperty(value = "主键ID")
+    @ApiModelProperty(value = "ID")
     @TableId(type=IdType.AUTO)
     @JsonIgnore
     protected Long id;

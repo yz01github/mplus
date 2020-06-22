@@ -69,7 +69,22 @@
         </javaClientGenerator>
 
         <!-- 需要生成的表名以及实体类命名 -->
-        <table tableName="PS_CONVERT" domainObjectName="ConvertEntity"
+        <table tableName="TI_ROLE" domainObjectName="RoleEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="TI_PERMISSION" domainObjectName="PermissionEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="TR_ROLE_PERM" domainObjectName="RolePermEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="TR_USER_ROLE" domainObjectName="UserRoleEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
