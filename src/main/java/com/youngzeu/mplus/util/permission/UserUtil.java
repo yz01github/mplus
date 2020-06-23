@@ -2,18 +2,13 @@ package com.youngzeu.mplus.util.permission;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.youngzeu.mplus.dao.UserDao;
-import com.youngzeu.mplus.entity.user.UserDO;
-import com.youngzeu.mplus.entity.user.UserDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import com.youngzeu.mplus.entity.user.UserEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,24 +49,24 @@ public class UserUtil {
 
     /**
      * description: [根据userId、userAccount查询User信息]
-     * @param   userDO          查询条件
-     * @return  List<UserDO>    查询结果
+     * @param   UserEntity          查询条件
+     * @return  List<UserEntity>    查询结果
      * @author <a href="mailto:yangzhi@asiainfo.com">yangzhi</a>
      * created 2020/6/15
      */
-    public static List<UserDO> qryUserInfo(UserDO userDO){
-        boolean notBlankUserId = StringUtils.isNotBlank(userDO.getUserId());
-        boolean notBlankAccount = StringUtils.isNotBlank(userDO.getUserAccount());
+    public static List<UserEntity> qryUserInfo(UserEntity UserEntity){
+        boolean notBlankUserId = StringUtils.isNotBlank(UserEntity.getUserId());
+        boolean notBlankAccount = StringUtils.isNotBlank(UserEntity.getUserAccount());
         if(!notBlankUserId && !notBlankAccount){
             // TODO 报错，不能全为空
         }
-        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
-        wrapper.eq(notBlankUserId, "userId", userDO.getUserId());
-        wrapper.eq(notBlankAccount, "userAccount", userDO.getUserAccount());
+        QueryWrapper<UserEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq(notBlankUserId, "userId", UserEntity.getUserId());
+        wrapper.eq(notBlankAccount, "userAccount", UserEntity.getUserAccount());
         return userDao.selectList(wrapper);
     }
 
-    public static boolean userIsExist(UserDO userDO){
-        return !CollectionUtils.isEmpty(qryUserInfo(userDO));
+    public static boolean userIsExist(UserEntity UserEntity){
+        return !CollectionUtils.isEmpty(qryUserInfo(UserEntity));
     }
 }

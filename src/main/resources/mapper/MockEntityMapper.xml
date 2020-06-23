@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.youngzeu.mplus.dao.MockEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.youngzeu.mplus.entity.Mock.MockEntity" >
+  <resultMap id="BaseResultMap" type="com.youngzeu.mplus.entity.mock.MockEntity" >
     <constructor >
       <idArg column="SYSTEM_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <idArg column="MOCK_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -16,15 +16,15 @@
       <arg column="MOCK_TAG3" jdbcType="CHAR" javaType="java.lang.String" />
       <arg column="INSERT_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UPDATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="INSERT_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="INSERT_TIME" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     SYSTEM_ID, MOCK_CODE, MOCK_ATTR, MOCK_STR1, MOCK_STR2, MOCK_STR3, MOCK_STR4, MOCK_STR5, 
     MOCK_TAG1, MOCK_TAG2, MOCK_TAG3, INSERT_USER, UPDATE_USER, INSERT_TIME, UPDATE_TIME
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.youngzeu.mplus.entity.Mock.MockEntityKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.youngzeu.mplus.entity.mock.MockEntityKey" >
     select 
     <include refid="Base_Column_List" />
     from ps_mock
@@ -32,13 +32,13 @@
       and MOCK_CODE = #{mockCode,jdbcType=VARCHAR}
       and MOCK_ATTR = #{mockAttr,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.youngzeu.mplus.entity.Mock.MockEntityKey" >
+  <delete id="deleteByPrimaryKey" parameterType="com.youngzeu.mplus.entity.mock.MockEntityKey" >
     delete from ps_mock
     where SYSTEM_ID = #{systemId,jdbcType=VARCHAR}
       and MOCK_CODE = #{mockCode,jdbcType=VARCHAR}
       and MOCK_ATTR = #{mockAttr,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.youngzeu.mplus.entity.Mock.MockEntity" >
+  <insert id="insert" parameterType="com.youngzeu.mplus.entity.mock.MockEntity" >
     insert into ps_mock (SYSTEM_ID, MOCK_CODE, MOCK_ATTR, 
       MOCK_STR1, MOCK_STR2, MOCK_STR3, 
       MOCK_STR4, MOCK_STR5, MOCK_TAG1, 
@@ -52,7 +52,7 @@
       #{updateUser,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.youngzeu.mplus.entity.Mock.MockEntity" >
+  <insert id="insertSelective" parameterType="com.youngzeu.mplus.entity.mock.MockEntity" >
     insert into ps_mock
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="systemId != null" >
@@ -149,7 +149,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.youngzeu.mplus.entity.Mock.MockEntity" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.youngzeu.mplus.entity.mock.MockEntity" >
     update ps_mock
     <set >
       <if test="mockStr1 != null" >
@@ -193,7 +193,7 @@
       and MOCK_CODE = #{mockCode,jdbcType=VARCHAR}
       and MOCK_ATTR = #{mockAttr,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.youngzeu.mplus.entity.Mock.MockEntity" >
+  <update id="updateByPrimaryKey" parameterType="com.youngzeu.mplus.entity.mock.MockEntity" >
     update ps_mock
     set MOCK_STR1 = #{mockStr1,jdbcType=VARCHAR},
       MOCK_STR2 = #{mockStr2,jdbcType=VARCHAR},

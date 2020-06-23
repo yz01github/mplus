@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngzeu.mplus.dao.PermissionEntityMapper">
+  <resultMap id="BaseResultMap" type="com.youngzeu.mplus.entity.PermissionEntity">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="PERM_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERM_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="IS_DELETE" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="INSERT_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INSERT_TIME" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="UPDATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="UPDATE_TIME" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="SPARE_STR1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_STR3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_DATE1" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="SPARE_TAG1" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.youngzeu.mplus.entity.PermissionEntity">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="PERM_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERM_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="IS_DELETE" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="INSERT_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INSERT_TIME" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="UPDATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="UPDATE_TIME" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="SPARE_STR1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_STR3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_DATE1" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="SPARE_TAG1" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="SPARE_STR2" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PERM_ID, PERM_TYPE, PERM_NAME, REMARK, IS_DELETE, INSERT_USER, INSERT_TIME, UPDATE_USER, 
+    UPDATE_TIME, SPARE_STR1, SPARE_STR3, SPARE_DATE1, SPARE_TAG1
+  </sql>
+</mapper>

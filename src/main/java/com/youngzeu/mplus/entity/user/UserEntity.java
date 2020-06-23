@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @TableName(value = "TI_USER")
-public class UserDO extends BaseEntity{
+public class UserEntity extends BaseEntity{
 
 	@TableField("USER_ID")
 	private String userId;

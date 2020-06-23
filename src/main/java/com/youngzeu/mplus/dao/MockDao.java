@@ -1,9 +1,10 @@
 package com.youngzeu.mplus.dao;
 
-import com.youngzeu.mplus.entity.Mock.MockEntity;
-import com.youngzeu.mplus.entity.Mock.MockEntityKey;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.youngzeu.mplus.entity.mock.MockEntity;
+import com.youngzeu.mplus.entity.mock.MockEntityKey;
 
-public interface MockEntityMapper {
+public interface MockDao  extends BaseMapper<MockEntity> {
     int deleteByPrimaryKey(MockEntityKey key);
 
     int insert(MockEntity record);

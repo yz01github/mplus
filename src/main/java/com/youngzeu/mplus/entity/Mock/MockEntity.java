@@ -1,6 +1,4 @@
-package com.youngzeu.mplus.entity.Mock;
-
-import java.util.Date;
+package com.youngzeu.mplus.entity.mock;
 
 public class MockEntity extends MockEntityKey {
     private String mockStr1;

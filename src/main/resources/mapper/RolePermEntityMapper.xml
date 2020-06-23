@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngzeu.mplus.dao.RolePermEntityMapper">
+  <resultMap id="BaseResultMap" type="com.youngzeu.mplus.entity.RolePermEntity">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="PERM_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ROLE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="IS_DELETE" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="INSERT_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INSERT_TIME" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="UPDATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="UPDATE_TIME" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="SPARE_STR1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_STR2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_STR3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SPARE_DATE1" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" />
+      <arg column="SPARE_TAG1" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PERM_ID, ROLE_ID, IS_DELETE, INSERT_USER, INSERT_TIME, UPDATE_USER, UPDATE_TIME, 
+    SPARE_STR1, SPARE_STR2, SPARE_STR3, SPARE_DATE1, SPARE_TAG1
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tr_role_perm
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tr_role_perm
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.youngzeu.mplus.entity.RolePermEntity">
+    insert into tr_role_perm (ID, PERM_ID, ROLE_ID, 
+      IS_DELETE, INSERT_USER, INSERT_TIME, 
+      UPDATE_USER, UPDATE_TIME, SPARE_STR1, 
+      SPARE_STR2, SPARE_STR3, SPARE_DATE1, 
+      SPARE_TAG1)
+    values (#{id,jdbcType=BIGINT}, #{permId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=CHAR}, #{insertUser,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{spareStr1,jdbcType=VARCHAR}, 
+      #{spareStr2,jdbcType=VARCHAR}, #{spareStr3,jdbcType=VARCHAR}, #{spareDate1,jdbcType=TIMESTAMP}, 
+      #{spareTag1,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.youngzeu.mplus.entity.RolePermEntity">
+    insert into tr_role_perm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="permId != null">
+        PERM_ID,
+      </if>
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+      <if test="insertUser != null">
+        INSERT_USER,
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="spareStr1 != null">
+        SPARE_STR1,
+      </if>
+      <if test="spareStr2 != null">
+        SPARE_STR2,
+      </if>
+      <if test="spareStr3 != null">
+        SPARE_STR3,
+      </if>
+      <if test="spareDate1 != null">
+        SPARE_DATE1,
+      </if>
+      <if test="spareTag1 != null">
+        SPARE_TAG1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="permId != null">
+        #{permId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="insertUser != null">
+        #{insertUser,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spareStr1 != null">
+        #{spareStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr2 != null">
+        #{spareStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr3 != null">
+        #{spareStr3,jdbcType=VARCHAR},
+      </if>
+      <if test="spareDate1 != null">
+        #{spareDate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spareTag1 != null">
+        #{spareTag1,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.youngzeu.mplus.entity.RolePermEntity">
+    update tr_role_perm
+    <set>
+      <if test="permId != null">
+        PERM_ID = #{permId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="insertUser != null">
+        INSERT_USER = #{insertUser,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null">
+        INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spareStr1 != null">
+        SPARE_STR1 = #{spareStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr2 != null">
+        SPARE_STR2 = #{spareStr2,jdbcType=VARCHAR},
+      </if>
+      <if test="spareStr3 != null">
+        SPARE_STR3 = #{spareStr3,jdbcType=VARCHAR},
+      </if>
+      <if test="spareDate1 != null">
+        SPARE_DATE1 = #{spareDate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spareTag1 != null">
+        SPARE_TAG1 = #{spareTag1,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.youngzeu.mplus.entity.RolePermEntity">
+    update tr_role_perm
+    set PERM_ID = #{permId,jdbcType=VARCHAR},
+      ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      IS_DELETE = #{isDelete,jdbcType=CHAR},
+      INSERT_USER = #{insertUser,jdbcType=VARCHAR},
+      INSERT_TIME = #{insertTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      SPARE_STR1 = #{spareStr1,jdbcType=VARCHAR},
+      SPARE_STR2 = #{spareStr2,jdbcType=VARCHAR},
+      SPARE_STR3 = #{spareStr3,jdbcType=VARCHAR},
+      SPARE_DATE1 = #{spareDate1,jdbcType=TIMESTAMP},
+      SPARE_TAG1 = #{spareTag1,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
