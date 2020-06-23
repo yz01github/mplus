@@ -1,4 +1,4 @@
-package com.youngzeu.mplus.entity.user;
+package com.youngzeu.mplus.pojo.vo.user;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

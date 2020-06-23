@@ -1,4 +1,4 @@
-package com.youngzeu.mplus.entity.user;
+package com.youngzeu.mplus.pojo.dto.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

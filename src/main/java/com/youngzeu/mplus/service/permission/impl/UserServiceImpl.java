@@ -2,7 +2,7 @@ package com.youngzeu.mplus.service.permission.impl;
 
 import java.util.List;
 
-import com.youngzeu.mplus.entity.user.UserDTO;
+import com.youngzeu.mplus.pojo.dto.user.UserDTO;
 import com.youngzeu.mplus.entity.user.UserEntity;
 import com.youngzeu.mplus.service.permission.UserService;
 import com.youngzeu.mplus.util.GeneraIdUtil;

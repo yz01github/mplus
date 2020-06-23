@@ -1,4 +1,4 @@
-package com.youngzeu.mplus.entity.user;
+package com.youngzeu.mplus.pojo.vo.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.youngzeu.mplus.entity.base.BaseEntity;

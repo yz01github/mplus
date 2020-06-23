@@ -1,8 +1,8 @@
 package com.youngzeu.mplus.controller;
 
 import com.youngzeu.mplus.config.cached.SessionCached;
-import com.youngzeu.mplus.entity.user.UserCreateVO;
-import com.youngzeu.mplus.entity.user.UserDTO;
+import com.youngzeu.mplus.pojo.vo.user.UserCreateVO;
+import com.youngzeu.mplus.pojo.dto.user.UserDTO;
 import com.youngzeu.mplus.entity.user.UserEntity;
 import com.youngzeu.mplus.response.ResponseResult;
 import com.youngzeu.mplus.service.permission.UserService;
