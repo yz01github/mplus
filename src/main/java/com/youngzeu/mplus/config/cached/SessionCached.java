@@ -30,6 +30,11 @@ public class SessionCached {
 
     public static <K extends String, V> void put(K k, V v){
         local.get().put(k, v);
+		if (Objects.nonNull(v)) {
+			log.debug("put once...");
+			Map<String, Object> map = local.get();
+			map.put(k, v);
+		}
     }
 
     /**

@@ -2,11 +2,13 @@ package com.youngzeu.mplus.config;
 
 import com.youngzeu.mplus.interceptor.CsrfInterceptor;
 import com.youngzeu.mplus.interceptor.LoginInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * description: []
@@ -22,6 +25,7 @@ import java.util.List;
  * @author <a href="mailto:yangzhi@asiainfo.com">yangzhi</a>
  * created 2020/1/19
  */
+@Slf4j
 @Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
@@ -48,8 +52,22 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns(用于添加拦截规则);excludePathPatterns(用户排除拦截)
         //*registry.addInterceptor(new MyInterceptor1()).addPathPatterns("/**");
-        registry.addInterceptor(new CsrfInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+        InterceptorRegistration registration1 = registry.addInterceptor(new CsrfInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/error")//排除的路径
+                .excludePathPatterns("/logout")//
+                .excludePathPatterns("/v2/**")//
+                .excludePathPatterns("/swagger-resources/**")
+                .excludePathPatterns("/**/*.html")// 所有html不拦截
+                .excludePathPatterns("/**/*.js")
+                .excludePathPatterns("/**/*.css")
+                .excludePathPatterns("/**/*.png")
+                .addPathPatterns("/**");
+        InterceptorRegistration registration2 = registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/login")// 放行controller
+                .addPathPatterns("/**");
+        log.debug("" + registration1);
+        log.debug("registration1 == registration2 -> " + Objects.equals(registration1,registration2));
+
     }
 
     // 实现WebMvcConfigurer的
