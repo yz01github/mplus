@@ -53,7 +53,8 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         // addPathPatterns(用于添加拦截规则);excludePathPatterns(用户排除拦截)
         //*registry.addInterceptor(new MyInterceptor1()).addPathPatterns("/**");
         InterceptorRegistration registration1 = registry.addInterceptor(new CsrfInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/error")//排除的路径
+                .excludePathPatterns("/login")//排除的路径,即不做拦截的
+                .excludePathPatterns("/error")
                 .excludePathPatterns("/logout")//
                 .excludePathPatterns("/v2/**")//
                 .excludePathPatterns("/swagger-resources/**")
@@ -64,6 +65,16 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                 .addPathPatterns("/**");
         InterceptorRegistration registration2 = registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/login")// 放行controller
+                .excludePathPatterns("/login")//排除的路径
+                .excludePathPatterns("/webjars/**")
+                .excludePathPatterns("/error")
+                .excludePathPatterns("/logout")
+                .excludePathPatterns("/v2/**")
+                .excludePathPatterns("/swagger-resources/**")
+                .excludePathPatterns("/**/*.html")
+                .excludePathPatterns("/**/*.js")
+                .excludePathPatterns("/**/*.css")
+                .excludePathPatterns("/**/*.png")
                 .addPathPatterns("/**");
         log.debug("" + registration1);
         log.debug("registration1 == registration2 -> " + Objects.equals(registration1,registration2));

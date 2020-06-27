@@ -1,8 +1,7 @@
 package com.youngzeu.mplus.response;
 
+import com.youngzeu.mplus.util.date.DateUtils;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 public class ResponseResult<T> {
@@ -35,7 +34,7 @@ public class ResponseResult<T> {
 	/**
 	 * 操作结束时间
 	 */
-	private LocalDateTime dealTime;
+	private String dealTime;
 
 	public static <T> ResponseResult<T> result(boolean isSuccess) {
 		return isSuccess ? success() : fail();
@@ -57,7 +56,9 @@ public class ResponseResult<T> {
 		ResponseResult<T> result = new ResponseResult<T>();
 		result.setStatus(200);
 		result.setMessage(SUCCESS_MESSAGE);
-		result.setDealTime(LocalDateTime.now());
+		result.setDealTime(DateUtils.getSysTime());
+
+		System.out.println(result.toString());
 		return result;
 	}
 	public static <T> ResponseResult<T> fail() {
@@ -65,7 +66,7 @@ public class ResponseResult<T> {
 		ResponseResult<T> result = new ResponseResult<T>();
 		result.setStatus(500);
 		result.setMessage(FAILED_MESSAGE);
-		result.setDealTime(LocalDateTime.now());
+		result.setDealTime(DateUtils.getSysTime());
 		return result;
 	}
 	public static <T> ResponseResult<T> failAddMessage(String message) {

@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        log.debug("LoginInterceptor.preHandle begin...");
+        log.debug("LoginInterceptor.preHandle begin...;request uri:" + request.getRequestURI());
         String requestURI = request.getRequestURI();
         List<String> noCheckURI = Arrays.asList("");
         if(noCheckURI.contains(requestURI)){

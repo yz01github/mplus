@@ -2,9 +2,11 @@ package com.youngzeu.mplus.config.cached;
 
 import com.youngzeu.mplus.entity.base.BaseEntity;
 import com.youngzeu.mplus.entity.user.UserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -14,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author <a href="mailto:yangzhi@asiainfo.com">yangzhi</a>
  * created 2020/6/15
  */
+@Slf4j
 public class SessionCached {
     // ConcurrentHashMap 使用分段锁机制保证线程安全，比HashTable好，HashMap线程不安全
     private static ThreadLocal<Map<String,Object>> local =
@@ -28,7 +31,6 @@ public class SessionCached {
     }
 
     public static <K extends String, V> void put(K k, V v){
-        local.get().put(k, v);
 		if (Objects.nonNull(v)) {
 			log.debug("put once...");
 			Map<String, Object> map = local.get();

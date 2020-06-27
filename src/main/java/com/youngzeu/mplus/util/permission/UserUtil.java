@@ -61,8 +61,8 @@ public class UserUtil {
             // TODO 报错，不能全为空
         }
         QueryWrapper<UserEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq(notBlankUserId, "userId", UserEntity.getUserId());
-        wrapper.eq(notBlankAccount, "userAccount", UserEntity.getUserAccount());
+        wrapper.eq(notBlankUserId, "USER_ID", UserEntity.getUserId());
+        wrapper.eq(notBlankAccount, "USER_ACCOUNT", UserEntity.getUserAccount());
         return userDao.selectList(wrapper);
     }
 

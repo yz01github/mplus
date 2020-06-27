@@ -14,4 +14,8 @@ public class GeneraIdUtil {
         return UUID.randomUUID().toString().replaceAll("-", REPLACE_FLAG);
     }
 
+    public static String generaRoleCacheId(String roleId) {
+        return "ROLE_PERMS_CACHE^" + roleId;
+    }
+
 }

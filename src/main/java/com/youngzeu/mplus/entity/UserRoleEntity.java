@@ -1,5 +1,6 @@
 package com.youngzeu.mplus.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.youngzeu.mplus.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 @Data
+@TableName(value = "TR_USER_ROLE")
 @EqualsAndHashCode(callSuper = false)
 public class UserRoleEntity extends BaseEntity {
 

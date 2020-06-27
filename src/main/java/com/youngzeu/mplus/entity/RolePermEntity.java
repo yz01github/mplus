@@ -1,5 +1,6 @@
 package com.youngzeu.mplus.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.youngzeu.mplus.entity.base.BaseEntity;
 import lombok.Data;
@@ -8,9 +9,9 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 @Data
+@TableName(value = "TR_ROLE_PERM")
 @EqualsAndHashCode(callSuper = false)
 public class RolePermEntity extends BaseEntity {
-    private Long id;
 
     private String permId;
 
