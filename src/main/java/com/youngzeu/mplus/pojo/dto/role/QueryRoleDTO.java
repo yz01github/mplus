@@ -1,5 +1,6 @@
 package com.youngzeu.mplus.pojo.dto.role;
 
+import com.youngzeu.mplus.pojo.dto.perm.PermDTO;
 import com.youngzeu.mplus.pojo.dto.user.UserDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,5 +21,5 @@ public class QueryRoleDTO extends RoleDTO {
     private List<UserDTO> userList;
 
     // 对应的Permission集合
-    private List<UserDTO> permList;
+    private List<PermDTO> permList;
 }

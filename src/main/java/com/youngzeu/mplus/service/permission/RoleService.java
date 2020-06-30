@@ -19,7 +19,7 @@ public interface RoleService extends IService<RoleEntity> {
 
     int updateRole(UpdateRoleDTO roleDTO);
 
-    List<RoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO);
+    IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO);
 
     IPage<QueryRoleDTO> qryRoles1(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO);
 }

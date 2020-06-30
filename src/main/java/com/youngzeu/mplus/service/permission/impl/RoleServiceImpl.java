@@ -1,15 +1,18 @@
 package com.youngzeu.mplus.service.permission.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.youngzeu.mplus.dao.PermissionDao;
 import com.youngzeu.mplus.dao.RoleDao;
 import com.youngzeu.mplus.dao.RolePermDao;
 import com.youngzeu.mplus.dao.UserDao;
 import com.youngzeu.mplus.dao.UserRoleDao;
+import com.youngzeu.mplus.entity.PermissionEntity;
 import com.youngzeu.mplus.entity.RoleEntity;
 import com.youngzeu.mplus.entity.RolePermEntity;
 import com.youngzeu.mplus.entity.UserRoleEntity;
@@ -48,6 +51,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private PermissionDao permDao;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -163,7 +169,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
     }
 
     @Override
-    public List<RoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO) {
+    public IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO) {
         PageDTO<RoleEntity> page = PageDTO.createPage(pageDTO.getCurrent(), pageDTO.getSize());
         QueryWrapper<RoleEntity> wrapperR = new QueryWrapper<>();
         IPage<RoleEntity> convertBeforeIPageR = roleDao.selectPage(page, wrapperR);
@@ -174,7 +180,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
             return queryRoleDTO;
         });
         List<QueryRoleDTO> roleRecords = iPageR.getRecords();
-
+        if(CollectionUtils.isEmpty(roleRecords)){
+            return iPageR;
+        }
         putUserByRole(roleRecords);
         putPermByRole(roleRecords);
 
@@ -183,20 +191,53 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
 
     // 查找并put 角色下的权限用于展示
     private void putPermByRole(List<QueryRoleDTO> roleRecords) {
+        List<String> roleIds = roleRecords.stream().map(r -> r.getRoleId()).collect(Collectors.toList());
+        QueryWrapper<RolePermEntity> wrapperRP = new QueryWrapper<RolePermEntity>().in("ROLE_ID", roleIds);
+        List<RolePermEntity> rpList = rolePermDao.selectList(wrapperRP);
+        if(CollectionUtils.isEmpty(rpList)){
+            return;
+        }
 
+        // 查找所有的User, 转换成<permId, PermDTO> 格式, map.get 比循环比较要快很多,这种做法是考虑效率的写法
+        // TODO 使用redis获取,提高效率
+        List<String> permIds = rpList.stream().map(rp -> rp.getPermId()).collect(Collectors.toList());
+        List<PermissionEntity> permEntityList = permDao.selectList(new QueryWrapper<PermissionEntity>().in("PERM_ID", permIds));
+        if(CollectionUtils.isEmpty(permEntityList)){
+            return ;
+        }
+        Map<String, PermDTO> permDTOMap = permEntityList.stream().map(pe -> {
+            PermDTO permDTO = new PermDTO();
+            BeanUtils.copyProperties(pe, permDTO);
+            return permDTO;
+        }).collect(Collectors.toMap(o -> o.getPermId(), p -> p));
+
+        // TODO 判空
+        roleRecords.forEach(rr -> {
+            List<PermDTO> permList = rr.getPermList();
+            rpList.forEach(rp -> {
+                if(Objects.equals(rr.getRoleId(), rp.getRoleId())){
+                    permList.add(permDTOMap.getOrDefault(rp.getPermId(), new PermDTO()));
+                }
+            });
+        });
     }
 
     // 查找并put 角色下的用户用于展示
     private void putUserByRole(List<QueryRoleDTO> roleRecords) {
         List<String> roleIds = roleRecords.stream().map(r -> r.getRoleId()).collect(Collectors.toList());
-        QueryWrapper<UserRoleEntity> wrapperUR = new QueryWrapper<UserRoleEntity>()
-                .in("ROLE_ID", roleIds);
+        Wrapper<UserRoleEntity> wrapperUR = new QueryWrapper<UserRoleEntity>().in("ROLE_ID", roleIds);
         List<UserRoleEntity> urList = userRoleDao.selectList(wrapperUR);
+        if (CollectionUtils.isEmpty(urList)){
+            return;
+        }
 
         // 查找所有的User, 转换成<userId, UserDTO> 格式, map.get 比循环比较要快很多,这种做法是考虑效率的写法
         // TODO 使用redis获取,提高效率
         List<String> userIds = urList.stream().map(ur -> ur.getUserId()).collect(Collectors.toList());
         List<UserEntity> userEntityList = userDao.selectList(new QueryWrapper<UserEntity>().in("USER_ID", userIds));
+        if(CollectionUtils.isEmpty(userEntityList)){
+            return;
+        }
         Map<String, UserDTO> userDTOMap = userEntityList.stream().map(ue -> {
             UserDTO userDTO = new UserDTO();
             BeanUtils.copyProperties(ue, userDTO);
