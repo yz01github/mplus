@@ -12,8 +12,6 @@ public interface PermissionDao  extends BaseMapper<PermissionEntity> {
 
     PermissionEntity selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(PermissionEntity record);
-
     int updateByPrimaryKeyWithBLOBs(PermissionEntity record);
 
     int updateByPrimaryKey(PermissionEntity record);

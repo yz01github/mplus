@@ -1,11 +1,13 @@
 package com.youngzeu.mplus.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.youngzeu.mplus.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
+@TableName(value = "TI_PERMISSION")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class PermissionEntity extends BaseEntity {

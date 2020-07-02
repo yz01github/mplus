@@ -9,8 +9,6 @@ import com.youngzeu.mplus.pojo.dto.role.QueryRoleDTO;
 import com.youngzeu.mplus.pojo.dto.role.RoleDTO;
 import com.youngzeu.mplus.pojo.dto.role.UpdateRoleDTO;
 
-import java.util.List;
-
 public interface RoleService extends IService<RoleEntity> {
 
     int createRole(CreateRoleDTO roleDTO);

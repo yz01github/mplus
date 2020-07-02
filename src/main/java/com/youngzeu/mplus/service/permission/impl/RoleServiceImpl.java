@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.youngzeu.mplus.constant.RoleCons;
 import com.youngzeu.mplus.dao.PermissionDao;
 import com.youngzeu.mplus.dao.RoleDao;
 import com.youngzeu.mplus.dao.RolePermDao;
@@ -27,6 +28,7 @@ import com.youngzeu.mplus.pojo.dto.user.UserDTO;
 import com.youngzeu.mplus.service.permission.RoleService;
 import com.youngzeu.mplus.util.GeneraIdUtil;
 import com.youngzeu.mplus.util.cached.RedisUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -170,8 +172,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
 
     @Override
     public IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO) {
+        // 查询指定级别目录, 第一次默认查超级管理员目录下
         PageDTO<RoleEntity> page = PageDTO.createPage(pageDTO.getCurrent(), pageDTO.getSize());
-        QueryWrapper<RoleEntity> wrapperR = new QueryWrapper<>();
+        String parentRoleId = roleDTO.getParentRoleId();
+        String condParentRoleId = StringUtils.isBlank(parentRoleId) ? RoleCons.SPUER_ROLE : parentRoleId;
+        QueryWrapper<RoleEntity> wrapperR = new QueryWrapper<RoleEntity>()
+                .eq("PARENT_ROLE_ID", condParentRoleId);
         IPage<RoleEntity> convertBeforeIPageR = roleDao.selectPage(page, wrapperR);
         // TODO 判空
         IPage<QueryRoleDTO> iPageR = convertBeforeIPageR.convert(re -> {
@@ -211,7 +217,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
             return permDTO;
         }).collect(Collectors.toMap(o -> o.getPermId(), p -> p));
 
-        // TODO 判空
+        // 遍历put每个角色的权限list
         roleRecords.forEach(rr -> {
             List<PermDTO> permList = rr.getPermList();
             rpList.forEach(rp -> {
@@ -244,7 +250,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
             return userDTO;
         }).collect(Collectors.toMap(o -> o.getUserId(), e -> e));
 
-        // TODO 判空
+        // 遍历put每个角色对应的用户list
         roleRecords.forEach(rr -> {
             List<UserDTO> userList = rr.getUserList();
             urList.forEach(ur -> {
