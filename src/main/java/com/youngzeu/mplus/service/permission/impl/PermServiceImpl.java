@@ -113,6 +113,7 @@ public class PermServiceImpl extends ServiceImpl<PermissionDao, PermissionEntity
         IPage<PermDTO> result = iPage.convert(pe -> {
             PermDTO returnDTO = new PermDTO();
             BeanUtils.copyProperties(pe, returnDTO);
+
             return returnDTO;
         });
         return result;
