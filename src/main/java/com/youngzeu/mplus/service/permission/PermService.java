@@ -1,7 +1,9 @@
 package com.youngzeu.mplus.service.permission;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.youngzeu.mplus.entity.PermissionEntity;
+import com.youngzeu.mplus.pojo.dto.page.PageDTO;
 import com.youngzeu.mplus.pojo.dto.perm.PermDTO;
 import com.youngzeu.mplus.pojo.dto.role.RoleDTO;
 import com.youngzeu.mplus.pojo.vo.perm.CreatePermissionVO;
@@ -24,4 +26,6 @@ public interface PermService extends IService<PermissionEntity> {
     int updatePermission(PermDTO permDTO);
 
     List<RoleDTO> permIsUsing(String permId);
+
+    IPage<PermDTO> qryPermList(PageDTO<PermissionEntity> pageDTO, PermDTO permDTO);
 }

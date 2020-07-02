@@ -2,6 +2,7 @@ package com.youngzeu.mplus.service.permission.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.youngzeu.mplus.dao.PermissionDao;
 import com.youngzeu.mplus.dao.RoleDao;
@@ -9,6 +10,7 @@ import com.youngzeu.mplus.dao.RolePermDao;
 import com.youngzeu.mplus.entity.PermissionEntity;
 import com.youngzeu.mplus.entity.RoleEntity;
 import com.youngzeu.mplus.entity.RolePermEntity;
+import com.youngzeu.mplus.pojo.dto.page.PageDTO;
 import com.youngzeu.mplus.pojo.dto.perm.PermDTO;
 import com.youngzeu.mplus.pojo.dto.role.RoleDTO;
 import com.youngzeu.mplus.pojo.vo.perm.CreatePermissionVO;
@@ -99,6 +101,21 @@ public class PermServiceImpl extends ServiceImpl<PermissionDao, PermissionEntity
             return roleDTO;
         }).collect(Collectors.toList());
         return roleDTOs;
+    }
+
+    @Override
+    public IPage<PermDTO> qryPermList(PageDTO<PermissionEntity> pageDTO, PermDTO permDTO) {
+        PermissionEntity entity = new PermissionEntity();
+        BeanUtils.copyProperties(permDTO, entity);
+        QueryWrapper<PermissionEntity> wrapper = new QueryWrapper<PermissionEntity>()
+                .like("PERM_NAME", permDTO.getPermName());
+        IPage<PermissionEntity> iPage = permDao.selectPage(pageDTO, wrapper);
+        IPage<PermDTO> result = iPage.convert(pe -> {
+            PermDTO returnDTO = new PermDTO();
+            BeanUtils.copyProperties(pe, returnDTO);
+            return returnDTO;
+        });
+        return result;
     }
 
     public List<RolePermEntity> qryPerm(String permId) {
