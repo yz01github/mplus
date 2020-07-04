@@ -31,6 +31,7 @@ import com.youngzeu.mplus.util.cached.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.util.CollectionUtils;
@@ -40,6 +41,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Service
 public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements RoleService {
 
     @Autowired
@@ -71,7 +73,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
     @Override
     public int createRole(CreateRoleDTO roleDTO) {
         // insert role
-        String roleId = GeneraIdUtil.generaUUID();
+        String roleId = roleDTO.getRoleId();
         RoleEntity roleEntity = new RoleEntity();
         BeanUtils.copyProperties(roleDTO, roleEntity);
         roleEntity.setRoleId(roleId);
@@ -190,7 +192,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
     public IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleEntity> pageDTO) {
         // 查询指定级别目录, 第一次默认查超级管理员目录下
         String parentRoleId = roleDTO.getParentRoleId();
-        String condParentRoleId = StringUtils.isBlank(parentRoleId) ? RoleCons.SPUER_ROLE : parentRoleId;
+        String condParentRoleId = StringUtils.isBlank(parentRoleId) ? RoleCons.SUPER_USER : parentRoleId;
         QueryWrapper<RoleEntity> wrapperR = new QueryWrapper<RoleEntity>()
                 .eq("PARENT_ROLE_ID", condParentRoleId);
         IPage<RoleEntity> convertBeforeIPageR = roleDao.selectPage(pageDTO, wrapperR);
@@ -207,7 +209,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
         putUserByRole(roleRecords);
         putPermByRole(roleRecords);
 
-        return null;
+        return iPageR;
     }
 
     // 查找并put 角色下的权限用于展示

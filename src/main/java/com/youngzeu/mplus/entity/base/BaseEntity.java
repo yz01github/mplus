@@ -52,7 +52,8 @@ public class BaseEntity extends Model<BaseEntity> {
     /**
      * 是否删除 : 0 未删除,1 已删除
      */
+    @JsonIgnore
     @TableLogic(value = "0", delval = "1")
     @TableField(value = "IS_DELETE",  fill = FieldFill.INSERT)
-    protected Integer isDelete;
+    protected Character isDelete;
 }

@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class RoleCons {
 
     // 超级管理员角色 roleId
-    public static final String SPUER_ROLE = "SPUER_USER";
+    public static final String SUPER_USER = "SUPER_USER";
 }
