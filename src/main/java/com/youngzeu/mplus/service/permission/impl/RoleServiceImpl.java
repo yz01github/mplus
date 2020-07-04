@@ -127,7 +127,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
         rolePermDao.delete(delWrapper);
 
         // 再查一次,不为空就抛错,不能用delete的返回条数判断,因为存在角色的关联关系为空的情况
-        QueryWrapper<RolePermEntity> wrapperRP = new QueryWrapper<>();
+        QueryWrapper<RolePermEntity> wrapperRP = new QueryWrapper<RolePermEntity>().eq("ROLE_ID", roleId);
         List<RolePermEntity> rpList = rolePermDao.selectList(wrapperRP);
 
         if(!CollectionUtils.isEmpty(rpList)){
