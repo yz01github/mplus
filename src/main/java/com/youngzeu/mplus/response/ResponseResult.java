@@ -9,12 +9,12 @@ public class ResponseResult<T> {
 	/**
 	 * 操作成功返回提示信息
 	 */
-	private static final String FAILED_MESSAGE = "操作失败";
+	public static final String FAILED_MESSAGE = "操作失败";
 	
 	/**
 	 * 操作失败返回提示信息
 	 */
-	private static final String SUCCESS_MESSAGE = "操作成功";
+	public static final String SUCCESS_MESSAGE = "操作成功";
 
 	/**
 	 * 返回状态码

@@ -75,6 +75,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
         RoleEntity roleEntity = new RoleEntity();
         BeanUtils.copyProperties(roleDTO, roleEntity);
         roleEntity.setRoleId(roleId);
+
         int insertNum = roleDao.insert(roleEntity);
 
         List<PermDTO> permList = roleDTO.getPermList();
@@ -100,15 +101,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
 
      /**
      * description: [逻辑删除某一角色,并附带逻辑删除角色对应的权限,若该角色仍有用户使用,抛错不允许删除]
-     * @param   roleDTO 删除的角色信息
+     * @param   roleId  删除的角色Id
      * @return  int     删除的角色表的条数
      * @author <a href="mailto:learnsoftware@163.com"/>
      * date 2020/6/27 22:38
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int deleteRole(RoleDTO roleDTO) {
-        String roleId = roleDTO.getRoleId();
+    public int deleteRole(String roleId) {
         // TODO 查验用户是否拥有删除角色的权限
 
         // check role is using
@@ -143,10 +143,27 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
     @Override
     public int updateRole(UpdateRoleDTO roleDTO) {
         String roleId = roleDTO.getRoleId();
+
+        if(!CollectionUtils.isEmpty(roleDTO.getNewPerms())){
+            updateRolePerms(roleDTO);
+        }
+
+        // 更新角色名称等信息
+        RoleEntity roleEntity = new RoleEntity();
+        BeanUtils.copyProperties(roleDTO, roleEntity);
+        return roleDao.update(roleEntity, new UpdateWrapper<RoleEntity>().eq("ROLE_ID",roleId));
+    }
+
+    // 更新角色的相关权限
+    private void updateRolePerms(UpdateRoleDTO roleDTO) {
+        String roleId = roleDTO.getRoleId();
+        List<String> newPerms = roleDTO.getNewPerms();
+
         // Redis缓存角色拥有的权限
         String roleCacheId = GeneraIdUtil.generaRoleCacheId(roleId);
-        String rolePermCache = redisUtil.get(roleCacheId);
-        List<String> rolePermIds;
+        String rolePermCache = redisUtil.get(roleCacheId); // 缓存的该角色已有所有permIds
+        List<String> rolePermIds;// 该角色已有所有permIds
+
         if(Objects.isNull(rolePermCache)){
             // 缓存没有,数据库查已有的权限ID
             List<RolePermEntity> rolePerms = rolePermDao.selectList(new QueryWrapper<RolePermEntity>().eq("ROLE_ID", roleId));
@@ -154,7 +171,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
         }else{
             rolePermIds = JSON.parseArray(rolePermCache, String.class);
         }
-        List<String> newPerms = roleDTO.getNewPerms();
+
         // 过滤出需要添加的,没有的才加,已有的就不返回了
         List<String> newPermsFilted = newPerms.stream().filter(p -> !rolePermIds.contains(p))
                 .collect(Collectors.toList());
@@ -167,18 +184,16 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
         });
         // 完成后新权限加入缓存
         redisUtil.set(roleCacheId, JSON.toJSONString(newPerms));
-        return newPerms.size();
     }
 
     @Override
-    public IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO) {
+    public IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleEntity> pageDTO) {
         // 查询指定级别目录, 第一次默认查超级管理员目录下
-        PageDTO<RoleEntity> page = PageDTO.createPage(pageDTO.getCurrent(), pageDTO.getSize());
         String parentRoleId = roleDTO.getParentRoleId();
         String condParentRoleId = StringUtils.isBlank(parentRoleId) ? RoleCons.SPUER_ROLE : parentRoleId;
         QueryWrapper<RoleEntity> wrapperR = new QueryWrapper<RoleEntity>()
                 .eq("PARENT_ROLE_ID", condParentRoleId);
-        IPage<RoleEntity> convertBeforeIPageR = roleDao.selectPage(page, wrapperR);
+        IPage<RoleEntity> convertBeforeIPageR = roleDao.selectPage(pageDTO, wrapperR);
         // TODO 判空
         IPage<QueryRoleDTO> iPageR = convertBeforeIPageR.convert(re -> {
             QueryRoleDTO queryRoleDTO = new QueryRoleDTO();
@@ -259,11 +274,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
                 }
             });
         });
-    }
-
-    @Override
-    public IPage<QueryRoleDTO> qryRoles1(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO) {
-        return null;
     }
 
     private List<UserRoleEntity> qryUserRoleByRoleId(String roleId){

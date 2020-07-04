@@ -13,11 +13,10 @@ public interface RoleService extends IService<RoleEntity> {
 
     int createRole(CreateRoleDTO roleDTO);
 
-    int deleteRole(RoleDTO roleDTO);
+    int deleteRole(String roleId);
 
     int updateRole(UpdateRoleDTO roleDTO);
 
-    IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO);
+    IPage<QueryRoleDTO> qryRoles(QueryRoleDTO roleDTO, PageDTO<RoleEntity> pageDTO);
 
-    IPage<QueryRoleDTO> qryRoles1(QueryRoleDTO roleDTO, PageDTO<RoleDTO> pageDTO);
 }
